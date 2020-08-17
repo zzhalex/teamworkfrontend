@@ -15,7 +15,7 @@ export default function Dashboard() {
       })
       .then((res) => {
         console.log(res.data);
-        setTask(res.data);
+        setTask(res.data.rows);
       })
       .catch((err) => {
         console.log(err);
@@ -32,7 +32,7 @@ export default function Dashboard() {
   // partner: "[2,3]"
   // updatedAt: "2020-08-12T06:54:24.287Z"
   function taskDiv(task) {
-    let dueDate = new Date(task.duedate);
+    let createdDate = new Date(task.createdAt);
     let name = task.name.charAt(0).toUpperCase() + task.name.slice(1);
 
     return (
@@ -46,7 +46,7 @@ export default function Dashboard() {
         </div>
         <div className="px-6 py-4">
           <span className="Duedate inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-            {dueDate.toDateString()}
+            {createdDate.toDateString()}
           </span>
         </div>
       </div>
