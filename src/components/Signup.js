@@ -69,7 +69,7 @@ export default function SignUp() {
       .post("/users/add", signUpInfo)
       .then(function (response) {
         console.log(response);
-        setRedirect(true)
+        setRedirect(true);
       })
       .catch(function (error) {
         console.log(error);
