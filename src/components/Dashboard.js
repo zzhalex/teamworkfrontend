@@ -3,8 +3,12 @@ import axios from "axios";
 
 export default function Dashboard() {
   const [task, setTask] = useState([]);
+  let isLogin = false;
   useEffect(() => {
     let access_token = localStorage.getItem("token");
+    if (access_token != null) {
+      isLogin = true;
+    }
     console.log("local storage");
     console.log(access_token);
     axios
@@ -57,9 +61,20 @@ export default function Dashboard() {
     return taskDiv(t);
   });
 
-  return (
-    <div className="Dashboard grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-      {taskPart}
-    </div>
-  );
+  if (isLogin) {
+    return (
+      <div className="Dashboard grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+        {taskPart}
+      </div>
+    );
+  } else {
+    return (
+      <div className="Dashboard flex justify-center">
+        <img
+          className="justify-center self-center box-content h-200 w-320 p-4"
+          src={process.env.PUBLIC_URL + "/emptypage.svg"}
+        />
+      </div>
+    );
+  }
 }

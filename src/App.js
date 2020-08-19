@@ -96,7 +96,7 @@ export default function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/signin">
+          <Route exact path="/signin">
             <Signin />
           </Route>
           <Route path="/signup">
