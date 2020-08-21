@@ -110,7 +110,7 @@ export default function App() {
             <Users />
           </Route>
           <Route path="/">
-            <Home />
+            <Home loginState={isLogin} />
           </Route>
         </Switch>
       </div>
@@ -119,10 +119,10 @@ export default function App() {
 }
 // }
 
-function Home() {
+function Home(props) {
   return (
     <React.Fragment>
-      <Dashboard />
+      <Dashboard loginState={props.loginState} />
     </React.Fragment>
   );
 }

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const [task, setTask] = useState([]);
-  let isLogin = true;
+  let isLogin = props.loginState;
   useEffect(() => {
     let access_token = localStorage.getItem("token");
     if (access_token != null) {
