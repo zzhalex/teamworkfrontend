@@ -48,23 +48,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
 
+  console.log(props.loginStateUpdate);
   function signIn(e) {
     e.preventDefault();
     let signInInfo = {
       username: username,
       password: password,
     };
+
     axios
       .post("/signin", signInInfo, { withCredentials: true })
       .then(function (res) {
         console.log(res);
         localStorage.setItem("token", res.data);
+        props.loginStateUpdate(true);
         setRedirect(true);
       })
       .catch(function (err) {

@@ -43,6 +43,10 @@ export default function App() {
     // setRedirect(true);
   };
 
+  const loginStateUpdate = (data) => {
+    setIslogin(data);
+  };
+
   let navLi;
   if (!isLogin) {
     navLi = (
@@ -97,7 +101,7 @@ export default function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route exact path="/signin">
-            <Signin />
+            <Signin loginStateUpdate={loginStateUpdate} />
           </Route>
           <Route path="/signup">
             <Signup />
