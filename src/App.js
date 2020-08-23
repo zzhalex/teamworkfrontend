@@ -10,6 +10,7 @@ import {
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import Dashboard from "./components/Dashboard";
+import User from "./components/User";
 import axios from "axios";
 
 export default function App() {
@@ -132,5 +133,9 @@ function About() {
 }
 
 function Users() {
-  return <h2>Users</h2>;
+  return (
+    <React.Fragment>
+      <User />
+    </React.Fragment>
+  );
 }

@@ -45,7 +45,12 @@ export default function Dashboard(props) {
         className="Task max-w-sm rounded overflow-hidden shadow-lg"
       >
         <div className="px-6 py-4">
-          <div className="TaskName font-bold text-xl mb-2">{name}</div>
+          <div className="TaskName inline-block font-bold text-xl mb-2">
+            {name}
+          </div>
+          <span className="TaskNumber inline-block bg-indigo-500 px-3 py-1 text-sm text-white mr-2 float-right">
+            Task#: {task.id}
+          </span>
           <p className="TaskDesc text-gray-700 text-base">{task.description}</p>
         </div>
         <div className="px-6 py-4">
@@ -61,10 +66,31 @@ export default function Dashboard(props) {
     return taskDiv(t);
   });
 
+  let toolBar = (
+    <div class="md:flex md:items-center h-24">
+      <div className="searchBox md:w-3/4 relative">
+        <input
+          class="inputsearchBox bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
+          type="email"
+          placeholder="Task Number"
+        />
+        <span class="material-icons absolute searchIcon">search</span>
+      </div>
+      <div className="addTask md:w-1/4 flex justify-center">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          Add Task
+        </button>
+      </div>
+    </div>
+  );
+
   if (isLogin) {
     return (
-      <div className="Dashboard grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-        {taskPart}
+      <div className="Dashboard">
+        <div className="toolBar w-full h-24">{toolBar}</div>
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+          {taskPart}
+        </div>
       </div>
     );
   } else {

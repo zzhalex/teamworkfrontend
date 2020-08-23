@@ -37,3 +37,13 @@ nav a {
   width: 100%;
   padding: 10px;
 }
+
+button:focus {
+  outline: none;
+}
+
+.searchIcon {
+  right: 10px;
+  bottom: 10px;
+  cursor: pointer;
+}
