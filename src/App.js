@@ -105,7 +105,7 @@ export default function App() {
             <Signin loginStateUpdate={loginStateUpdate} />
           </Route>
           <Route path="/signup">
-            <Signup />
+            <Signup loginState={isLogin} />
           </Route>
           <Route path="/users">
             <Users />

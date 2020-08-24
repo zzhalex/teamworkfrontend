@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -67,8 +67,9 @@ export default function SignUp() {
     };
     axios
       .post("/users/add", signUpInfo)
-      .then(function (response) {
-        console.log(response);
+      .then(function (res) {
+        localStorage.setItem("token", res.data);
+        props.loginStateUpdate(true);
         setRedirect(true);
       })
       .catch(function (error) {

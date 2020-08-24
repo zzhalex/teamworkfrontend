@@ -1,29 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 export default function Dashboard(props) {
   const [task, setTask] = useState([]);
+  const inputSearch = useRef(null);
   let isLogin = props.loginState;
   useEffect(() => {
     let access_token = localStorage.getItem("token");
     if (access_token != null) {
       isLogin = true;
     }
-    console.log("local storage");
-    console.log(access_token);
-    axios
-      .get("task", {
-        headers: {
-          Authorization: access_token,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setTask(res.data.rows);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // console.log("local storage");
+    // console.log(access_token);
+    getAllTask();
   }, []);
 
   // complete_status: false
@@ -42,7 +31,7 @@ export default function Dashboard(props) {
     return (
       <div
         key={task.id}
-        className="Task max-w-sm rounded overflow-hidden shadow-lg"
+        className="Task max-w-sm rounded overflow-hidden shadow-lg m-1"
       >
         <div className="px-6 py-4">
           <div className="TaskName inline-block font-bold text-xl mb-2">
@@ -62,27 +51,81 @@ export default function Dashboard(props) {
     );
   }
 
+  function searchTask() {
+    let access_token = localStorage.getItem("token");
+    if (inputSearch.current.value === "") {
+      getAllTask();
+    } else {
+      getTaskWithId();
+    }
+  }
+
+  function getTaskWithId() {
+    let access_token = localStorage.getItem("token");
+    console.log(inputSearch.current.value);
+    axios
+      .get("/task/" + inputSearch.current.value, {
+        headers: {
+          Authorization: access_token,
+        },
+      })
+      .then((data) => {
+        console.log(data.data);
+        if (data.data == "") {
+          setTask([]);
+        } else {
+          setTask([data.data]);
+        }
+      });
+  }
+
+  function getAllTask() {
+    let access_token = localStorage.getItem("token");
+
+    axios
+      .get("task", {
+        headers: {
+          Authorization: access_token,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setTask(res.data.rows);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   let taskPart = task.map((t) => {
     return taskDiv(t);
   });
 
   let toolBar = (
-    <div class="md:flex md:items-center h-24">
+    <div className="md:flex md:items-center h-24">
       <div className="searchBox md:w-3/4 relative">
         <input
-          class="inputsearchBox bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
+          className="inputsearchBox bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
           type="email"
           placeholder="Task Number"
+          ref={inputSearch}
         />
-        <span class="material-icons absolute searchIcon">search</span>
+        <span
+          className="material-icons absolute searchIcon"
+          onClick={searchTask}
+        >
+          search
+        </span>
       </div>
       <div className="addTask md:w-1/4 flex justify-center">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
           Add Task
         </button>
       </div>
     </div>
   );
+
+  let page = <div className="pagination"></div>;
 
   if (isLogin) {
     return (
