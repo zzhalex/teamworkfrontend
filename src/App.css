@@ -47,3 +47,9 @@ button:focus {
   bottom: 8px;
   cursor: pointer;
 }
+
+.clearIcon {
+  right: 10px;
+  bottom: 8px;
+  cursor: pointer;
+}

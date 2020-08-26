@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default function Dashboard(props) {
   const [task, setTask] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
   const inputSearch = useRef(null);
   let isLogin = props.loginState;
   useEffect(() => {
@@ -10,8 +11,6 @@ export default function Dashboard(props) {
     if (access_token != null) {
       isLogin = true;
     }
-    // console.log("local storage");
-    // console.log(access_token);
     getAllTask();
   }, []);
 
@@ -55,9 +54,17 @@ export default function Dashboard(props) {
     let access_token = localStorage.getItem("token");
     if (inputSearch.current.value === "") {
       getAllTask();
+      setIsSearch(false);
     } else {
       getTaskWithId();
+      setIsSearch(true);
     }
+  }
+
+  function clearSearch() {
+    setIsSearch(false);
+    getAllTask();
+    inputSearch.current.value = "";
   }
 
   function getTaskWithId() {
@@ -101,6 +108,15 @@ export default function Dashboard(props) {
     return taskDiv(t);
   });
 
+  let searchBoxIcon = isSearch ? (
+    <span className="material-icons absolute clearIcon" onClick={clearSearch}>
+      clear
+    </span>
+  ) : (
+    <span className="material-icons absolute searchIcon" onClick={searchTask}>
+      search
+    </span>
+  );
   let toolBar = (
     <div className="md:flex md:items-center h-24">
       <div className="searchBox md:w-3/4 relative">
@@ -110,12 +126,7 @@ export default function Dashboard(props) {
           placeholder="Task Number"
           ref={inputSearch}
         />
-        <span
-          className="material-icons absolute searchIcon"
-          onClick={searchTask}
-        >
-          search
-        </span>
+        {searchBoxIcon}
       </div>
       <div className="addTask md:w-1/4 flex justify-center">
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
