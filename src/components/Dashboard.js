@@ -70,15 +70,16 @@ export default function Dashboard(props) {
   function getTaskWithId() {
     let access_token = localStorage.getItem("token");
     console.log(inputSearch.current.value);
+    let id = isNaN(inputSearch.current.value) ? -1 : inputSearch.current.value;
     axios
-      .get("/task/" + inputSearch.current.value, {
+      .get("/task/" + id, {
         headers: {
           Authorization: access_token,
         },
       })
       .then((data) => {
         console.log(data.data);
-        if (data.data == "") {
+        if (data.data === "") {
           setTask([]);
         } else {
           setTask([data.data]);
@@ -124,6 +125,7 @@ export default function Dashboard(props) {
           className="inputsearchBox bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
           type="email"
           placeholder="Task Number"
+          onChange={searchTask}
           ref={inputSearch}
         />
         {searchBoxIcon}
