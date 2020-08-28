@@ -53,3 +53,26 @@ button:focus {
   bottom: 8px;
   cursor: pointer;
 }
+
+.User {
+  height: calc(100% - 45px);
+}
+/* sidebar */
+.sideBarContainer {
+  background-color: #2e3748;
+}
+
+.sideBar {
+  height: 100%;
+}
+
+.sideBar li {
+  height: 52px;
+  color: #899197;
+  padding: 12px 12px 12px 36px;
+  cursor: pointer;
+}
+
+.userInfo {
+  padding: 12px;
+}

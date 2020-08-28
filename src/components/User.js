@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import Sidebar from "./Sidebar";
+
 export default function User() {
   const [userinfo, updateUserinfo] = useState([]);
   useEffect(() => {
@@ -33,56 +35,56 @@ export default function User() {
     } else {
       return (
         <div className="userInfo w-full max-w-sm">
-          <div class="md:flex md:items-center mb-12">
-            <div class="md:w-1/3">
+          <div className="md:flex md:items-center mb-12">
+            <div className="md:w-1/3">
               <label
                 className="block text-gray-700 text-sm font-bold"
-                for="userUsername"
+                htmlFor="userUsername"
               >
                 Username
               </label>
             </div>
-            <div class="md:w-2/3">
+            <div className="md:w-2/3">
               <p className="userUsername block mb-2">{data.username}</p>
             </div>
           </div>
 
-          <div class="md:flex md:items-center mb-12">
-            <div class="md:w-1/3">
+          <div className="md:flex md:items-center mb-12">
+            <div className="md:w-1/3">
               <label
                 className="block text-gray-700 text-sm font-bold"
-                for="userFirstname"
+                htmlFor="userFirstname"
               >
                 Firstname
               </label>
             </div>
-            <div class="md:w-2/3">
+            <div className="md:w-2/3">
               <p className="userFirstname block mb-2">{data.firstname}</p>
             </div>
           </div>
-          <div class="md:flex md:items-center mb-12">
-            <div class="md:w-1/3">
+          <div className="md:flex md:items-center mb-12">
+            <div className="md:w-1/3">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                for="userLastname"
+                htmlFor="userLastname"
               >
                 Lastname
               </label>
             </div>
-            <div class="md:w-2/3">
+            <div className="md:w-2/3">
               <p className="userLastname block mb-2">{data.lastname}</p>
             </div>
           </div>
-          <div class="md:flex md:items-center mb-12">
-            <div class="md:w-1/3">
+          <div className="md:flex md:items-center mb-12">
+            <div className="md:w-1/3">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                for="userEamil"
+                htmlFor="userEamil"
               >
                 Email
               </label>
             </div>
-            <div class="md:w-2/3">
+            <div className="md:w-2/3">
               <p className="userEamil block mb-2">{data.email}</p>
             </div>
           </div>
@@ -92,5 +94,12 @@ export default function User() {
   };
 
   let UserInfo = getuserInfo(userinfo);
-  return <div className="User flex justify-center">{UserInfo}</div>;
+  return (
+    <div className="User md:flex mb-12">
+      <div className="sideBarContainer md:w-1/4">
+        <Sidebar />
+      </div>
+      <div className="md:w-3/4">{UserInfo}</div>
+    </div>
+  );
 }
