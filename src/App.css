@@ -76,3 +76,8 @@ button:focus {
 .userInfo {
   padding: 12px;
 }
+
+.DeleteTask {
+  padding: 3px 4px;
+  cursor: pointer;
+}

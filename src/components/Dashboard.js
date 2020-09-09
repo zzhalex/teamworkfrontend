@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import taskDiv from "./Task";
 
 export default function Dashboard(props) {
   const [task, setTask] = useState([]);
@@ -13,42 +14,6 @@ export default function Dashboard(props) {
     }
     getAllTask();
   }, []);
-
-  // complete_status: false
-  // createdAt: "2020-08-12T06:54:24.287Z"
-  // description: "make a to do list"
-  // duedate: "2020-12-31T00:00:00.000Z"
-  // id: 1
-  // name: "task101"
-  // owner: 1
-  // partner: "[2,3]"
-  // updatedAt: "2020-08-12T06:54:24.287Z"
-  function taskDiv(task) {
-    let createdDate = new Date(task.createdAt);
-    let name = task.name.charAt(0).toUpperCase() + task.name.slice(1);
-
-    return (
-      <div
-        key={task.id}
-        className="Task max-w-sm rounded overflow-hidden shadow-lg m-1"
-      >
-        <div className="px-6 py-4">
-          <div className="TaskName inline-block font-bold text-xl mb-2">
-            {name}
-          </div>
-          <span className="TaskNumber inline-block bg-indigo-500 px-3 py-1 text-sm text-white mr-2 float-right">
-            Task#: {task.id}
-          </span>
-          <p className="TaskDesc text-gray-700 text-base">{task.description}</p>
-        </div>
-        <div className="px-6 py-4">
-          <span className="Duedate inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-            {createdDate.toDateString()}
-          </span>
-        </div>
-      </div>
-    );
-  }
 
   function searchTask() {
     let access_token = localStorage.getItem("token");
@@ -69,7 +34,6 @@ export default function Dashboard(props) {
 
   function getTaskWithId() {
     let access_token = localStorage.getItem("token");
-    console.log(inputSearch.current.value);
     let id = isNaN(inputSearch.current.value) ? -1 : inputSearch.current.value;
     axios
       .get("/task/" + id, {
@@ -89,7 +53,6 @@ export default function Dashboard(props) {
 
   function getAllTask() {
     let access_token = localStorage.getItem("token");
-
     axios
       .get("task", {
         headers: {
@@ -97,7 +60,6 @@ export default function Dashboard(props) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setTask(res.data.rows);
       })
       .catch((err) => {
