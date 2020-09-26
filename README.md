@@ -1,4 +1,9 @@
-React Front End
---------------
-Tailwind Css
-npm run build:css
+# Teamwork Front End
+
+### Tech
+
+- React
+- TailWind Css
+- Axios
+- React-router
+
